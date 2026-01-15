@@ -25,56 +25,56 @@ interface StatusConfig {
 const STATUS_CONFIG: Record<StatusType, StatusConfig> = {
   draft: {
     label: "Draft",
-    color: "text-gray-400",
-    bgColor: "bg-gray-500/20",
+    color: "text-slate-600",
+    bgColor: "bg-slate-100",
     icon: FileText,
   },
   pending: {
     label: "Pending",
-    color: "text-amber-400",
-    bgColor: "bg-amber-500/20",
+    color: "text-amber-700",
+    bgColor: "bg-amber-50",
     icon: Clock,
   },
   sent: {
     label: "Sent",
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/20",
+    color: "text-blue-700",
+    bgColor: "bg-blue-50",
     icon: Clock,
   },
   viewed: {
     label: "Viewed",
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/20",
+    color: "text-blue-700",
+    bgColor: "bg-blue-50",
     icon: Eye,
   },
   signed: {
     label: "Signed",
-    color: "text-emerald-400",
-    bgColor: "bg-emerald-500/20",
+    color: "text-emerald-700",
+    bgColor: "bg-emerald-50",
     icon: Check,
   },
   completed: {
     label: "Completed",
-    color: "text-emerald-400",
-    bgColor: "bg-emerald-500/20",
+    color: "text-emerald-700",
+    bgColor: "bg-emerald-50",
     icon: CheckCircle2,
   },
   voided: {
     label: "Voided",
-    color: "text-red-400",
-    bgColor: "bg-red-500/20",
+    color: "text-red-700",
+    bgColor: "bg-red-50",
     icon: XCircle,
   },
   declined: {
     label: "Declined",
-    color: "text-red-400",
-    bgColor: "bg-red-500/20",
+    color: "text-red-700",
+    bgColor: "bg-red-50",
     icon: XCircle,
   },
   expired: {
     label: "Expired",
-    color: "text-gray-400",
-    bgColor: "bg-gray-500/20",
+    color: "text-slate-600",
+    bgColor: "bg-slate-100",
     icon: AlertCircle,
   },
 };
@@ -96,9 +96,9 @@ export function StatusBadge({
   const Icon = config.icon;
 
   const sizeStyles = {
-    sm: "px-2 py-0.5 text-xs gap-1",
-    md: "px-2.5 py-1 text-sm gap-1.5",
-    lg: "px-3 py-1.5 text-sm gap-2",
+    sm: "px-2.5 py-1 text-xs gap-1.5",
+    md: "px-3 py-1.5 text-[13px] gap-1.5",
+    lg: "px-3.5 py-2 text-sm gap-2",
   };
 
   const iconSizes = {

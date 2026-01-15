@@ -25,16 +25,16 @@ export function PageHeader({
   className,
 }: PageHeaderProps) {
   return (
-    <div className={cn("mb-6 md:mb-8", className)}>
+    <div className={cn("mb-8 md:mb-10", className)}>
       {/* Breadcrumbs */}
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav
-          className="flex items-center gap-1 text-sm text-[var(--color-text-muted)] mb-3"
+          className="flex items-center gap-1.5 text-[var(--text-body-sm)] text-[var(--color-text-muted)] mb-4"
           aria-label="Breadcrumb"
         >
           {breadcrumbs.map((crumb, index) => (
-            <span key={index} className="flex items-center gap-1">
-              {index > 0 && <ChevronRight className="w-4 h-4" />}
+            <span key={index} className="flex items-center gap-1.5">
+              {index > 0 && <ChevronRight className="w-3.5 h-3.5" />}
               {crumb.href ? (
                 <Link
                   href={crumb.href}
@@ -43,7 +43,7 @@ export function PageHeader({
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-[var(--color-text-secondary)]">
+                <span className="text-[var(--color-text-secondary)] font-medium">
                   {crumb.label}
                 </span>
               )}
@@ -53,18 +53,18 @@ export function PageHeader({
       )}
 
       {/* Title and Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-h1 font-semibold text-[var(--color-text-primary)]">
+          <h1 className="text-h1">
             {title}
           </h1>
           {description && (
-            <p className="mt-1 text-[var(--color-text-secondary)]">
+            <p className="mt-2 text-[var(--text-body)] text-[var(--color-text-secondary)]">
               {description}
             </p>
           )}
         </div>
-        {actions && <div className="flex items-center gap-3">{actions}</div>}
+        {actions && <div className="flex items-center gap-3 flex-shrink-0">{actions}</div>}
       </div>
     </div>
   );

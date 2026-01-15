@@ -35,6 +35,10 @@ export async function getContracts(filters?: ContractFilters): Promise<Contract[
     result = result.filter((c) => c.templateId === filters.templateId);
   }
 
+  if (filters?.batchId) {
+    result = result.filter((c) => c.batchId === filters.batchId);
+  }
+
   if (filters?.search) {
     const search = filters.search.toLowerCase();
     result = result.filter(
@@ -212,4 +216,50 @@ export async function resendToSigner(
   await simulateApiDelay();
   console.log(`Resending to signer: ${signerId} for contract: ${contractId}`);
   return { success: true };
+}
+
+/**
+ * Bulk send contracts
+ */
+export async function bulkSendContracts(
+  contractIds: string[]
+): Promise<{ success: boolean; sent: number; failed: number }> {
+  await simulateApiDelay(800);
+  console.log(`Bulk sending ${contractIds.length} contracts`);
+  return { success: true, sent: contractIds.length, failed: 0 };
+}
+
+/**
+ * Bulk remind signers for contracts
+ */
+export async function bulkRemindSigners(
+  contractIds: string[]
+): Promise<{ success: boolean; reminded: number; failed: number }> {
+  await simulateApiDelay(600);
+  console.log(`Bulk reminding signers for ${contractIds.length} contracts`);
+  return { success: true, reminded: contractIds.length, failed: 0 };
+}
+
+/**
+ * Bulk void contracts
+ */
+export async function bulkVoidContracts(
+  contractIds: string[],
+  reason?: string
+): Promise<{ success: boolean; voided: number; failed: number }> {
+  await simulateApiDelay(700);
+  console.log(`Bulk voiding ${contractIds.length} contracts. Reason: ${reason}`);
+  return { success: true, voided: contractIds.length, failed: 0 };
+}
+
+/**
+ * Bulk download contracts
+ */
+export async function bulkDownloadContracts(
+  contractIds: string[]
+): Promise<{ success: boolean; downloadUrl?: string }> {
+  await simulateApiDelay(1000);
+  console.log(`Bulk downloading ${contractIds.length} contracts`);
+  // In real implementation, this would return a zip file URL
+  return { success: true, downloadUrl: "#" };
 }

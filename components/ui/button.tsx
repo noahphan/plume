@@ -29,37 +29,43 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
 
     const baseStyles = cn(
-      "inline-flex items-center justify-center gap-2 font-medium transition-all",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background-base)]",
+      "inline-flex items-center justify-center gap-2",
+      "font-medium text-[var(--text-body-sm)]",
+      "transition-all duration-[var(--duration-fast)]",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2",
       "disabled:pointer-events-none disabled:opacity-50",
-      "active:scale-[0.98]"
+      "active:scale-[0.97]"
     );
 
     const variantStyles = {
       primary: cn(
-        "bg-[var(--color-primary)] text-white",
+        "bg-[var(--color-primary)] text-[var(--color-text-inverted)]",
+        "shadow-[var(--shadow-sm)]",
         "hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]"
       ),
       secondary: cn(
         "bg-[var(--color-surface-glass)] text-[var(--color-text-primary)]",
         "border border-[var(--color-border-default)]",
+        "shadow-[var(--shadow-xs)]",
         "hover:bg-[var(--color-surface-glass-hover)] hover:border-[var(--color-border-strong)]",
+        "hover:shadow-[var(--shadow-sm)]",
         "backdrop-blur-xl"
       ),
       ghost: cn(
         "text-[var(--color-text-secondary)]",
-        "hover:bg-[var(--color-surface-glass)] hover:text-[var(--color-text-primary)]"
+        "hover:bg-[var(--color-surface-glass-hover)] hover:text-[var(--color-text-primary)]"
       ),
       destructive: cn(
-        "bg-[var(--color-error)] text-white",
+        "bg-[var(--color-error)] text-[var(--color-text-inverted)]",
+        "shadow-[var(--shadow-sm)]",
         "hover:bg-[var(--color-error)]/90"
       ),
     };
 
     const sizeStyles = {
-      sm: "h-8 px-3 text-sm rounded-lg",
-      md: "h-10 px-4 text-sm rounded-xl",
-      lg: "h-12 px-6 text-base rounded-xl",
+      sm: "h-9 px-3.5 rounded-[var(--radius-md)]",
+      md: "h-10 px-5 rounded-[var(--radius-lg)]",
+      lg: "h-12 px-7 text-base rounded-[var(--radius-lg)]",
     };
 
     // When asChild is true, we can't add extra children (like the loader)

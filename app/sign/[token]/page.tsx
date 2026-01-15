@@ -19,11 +19,11 @@ export default function SignerLandingPage({
 
   if (isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center p-4">
-        <GlassCard className="max-w-md w-full text-center p-8">
-          <Skeleton variant="circular" className="w-16 h-16 mx-auto mb-6" />
-          <Skeleton className="h-6 w-3/4 mx-auto mb-2" />
-          <Skeleton className="h-4 w-full mb-1" />
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <Skeleton variant="circular" className="w-16 h-16 mx-auto mb-8" />
+          <Skeleton className="h-6 w-3/4 mx-auto mb-3" />
+          <Skeleton className="h-4 w-full mb-2" />
           <Skeleton className="h-4 w-2/3 mx-auto" />
         </GlassCard>
       </div>
@@ -32,18 +32,18 @@ export default function SignerLandingPage({
 
   if (error || !session) {
     return (
-      <div className="flex-1 flex items-center justify-center p-4">
-        <GlassCard className="max-w-md w-full text-center p-8">
-          <div className="w-16 h-16 rounded-full bg-[var(--color-error-muted)] flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-8 h-8 text-[var(--color-error)]" />
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-8">
+            <AlertTriangle className="w-8 h-8 text-red-600" />
           </div>
-          <h1 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
             Invalid or Expired Link
           </h1>
-          <p className="text-[var(--color-text-secondary)] mb-6">
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)] mb-6">
             This signing link is no longer valid. It may have expired or already been used.
           </p>
-          <p className="text-sm text-[var(--color-text-muted)]">
+          <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)]">
             Please contact the sender for a new signing link.
           </p>
         </GlassCard>
@@ -53,18 +53,18 @@ export default function SignerLandingPage({
 
   if (session.status === "completed") {
     return (
-      <div className="flex-1 flex items-center justify-center p-4">
-        <GlassCard className="max-w-md w-full text-center p-8">
-          <div className="w-16 h-16 rounded-full bg-[var(--color-success-muted)] flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-8 h-8 text-[var(--color-success)]" />
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-8">
+            <CheckCircle2 className="w-8 h-8 text-emerald-600" />
           </div>
-          <h1 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
             Already Signed
           </h1>
-          <p className="text-[var(--color-text-secondary)] mb-6">
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)] mb-8">
             You have already signed this document. A copy has been sent to your email.
           </p>
-          <Button variant="secondary">
+          <Button variant="secondary" size="lg">
             Download Your Copy
           </Button>
         </GlassCard>
@@ -74,15 +74,15 @@ export default function SignerLandingPage({
 
   if (session.status === "expired") {
     return (
-      <div className="flex-1 flex items-center justify-center p-4">
-        <GlassCard className="max-w-md w-full text-center p-8">
-          <div className="w-16 h-16 rounded-full bg-[var(--color-warning-muted)] flex items-center justify-center mx-auto mb-6">
-            <Clock className="w-8 h-8 text-[var(--color-warning)]" />
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-8">
+            <Clock className="w-8 h-8 text-amber-600" />
           </div>
-          <h1 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
             Link Expired
           </h1>
-          <p className="text-[var(--color-text-secondary)]">
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)]">
             This signing link has expired. Please contact the sender to request a new one.
           </p>
         </GlassCard>
@@ -91,47 +91,45 @@ export default function SignerLandingPage({
   }
 
   return (
-    <div className="flex-1 flex items-center justify-center p-4">
-      <GlassCard className="max-w-md w-full p-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-muted)] flex items-center justify-center mx-auto mb-4">
-            <span className="text-lg font-bold text-[var(--color-primary)]">
+    <div className="flex-1 flex items-center justify-center p-6">
+      <GlassCard className="max-w-md w-full p-10">
+        {/* Header - Company */}
+        <div className="text-center mb-10">
+          <div className="w-14 h-14 rounded-[var(--radius-xl)] bg-[var(--color-primary-muted)] flex items-center justify-center mx-auto mb-4 border border-[var(--color-primary)]/20">
+            <span className="text-xl font-bold text-[var(--color-primary)]">
               {session.senderCompany.charAt(0)}
             </span>
           </div>
-          <p className="text-sm text-[var(--color-text-muted)]">
+          <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)]">
             {session.senderCompany}
           </p>
         </div>
 
         {/* Welcome Message */}
-        <div className="text-center mb-8">
-          <h1 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
+        <div className="text-center mb-10">
+          <h1 className="text-h1 text-[var(--color-text-primary)] mb-3">
             You&apos;ve been invited to sign
           </h1>
-          <p className="text-lg text-[var(--color-text-secondary)]">
+          <p className="text-[var(--text-body-lg)] text-[var(--color-text-secondary)]">
             {session.contractTitle}
           </p>
         </div>
 
         {/* Contract Info */}
-        <div className="p-4 rounded-xl bg-[var(--color-surface-glass)] mb-8">
+        <div className="p-5 rounded-[var(--radius-xl)] bg-[var(--color-background-subtle)] border border-[var(--color-border-subtle)] mb-8">
           <div className="flex items-center gap-3 mb-3">
             <FileText className="w-5 h-5 text-[var(--color-text-muted)]" />
-            <span className="text-sm text-[var(--color-text-secondary)]">
+            <span className="text-[var(--text-body-sm)] text-[var(--color-text-secondary)]">
               {session.documentPages} pages
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-[var(--color-text-muted)]">
-              From: {session.senderName}
-            </span>
+          <div className="text-[var(--text-body-sm)] text-[var(--color-text-muted)]">
+            From: {session.senderName}
           </div>
         </div>
 
         {/* Security Notice */}
-        <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-8 justify-center">
+        <div className="flex items-center gap-2 text-[var(--text-body-sm)] text-[var(--color-text-muted)] mb-8 justify-center">
           <Shield className="w-4 h-4" />
           <span>Secure signing session</span>
         </div>

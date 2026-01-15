@@ -1,0 +1,70 @@
+[
+  {
+    "id": "batch-q1-clients",
+    "name": "Q1 2026 Client Onboarding",
+    "description": "NDAs and SOWs for new Q1 clients",
+    "status": "in_progress",
+    "contractIds": ["ctr-002", "ctr-003", "ctr-009"],
+    "totalContracts": 3,
+    "signedCount": 0,
+    "pendingCount": 3,
+    "completedCount": 0,
+    "createdAt": "2026-01-10T09:00:00Z",
+    "updatedAt": "2026-01-14T09:15:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen"
+    }
+  },
+  {
+    "id": "batch-jan-hiring",
+    "name": "January 2026 Hiring",
+    "description": "Offer letters for January new hires",
+    "status": "in_progress",
+    "contractIds": ["ctr-004", "ctr-010", "ctr-011"],
+    "totalContracts": 3,
+    "signedCount": 1,
+    "pendingCount": 2,
+    "completedCount": 1,
+    "createdAt": "2025-11-20T11:00:00Z",
+    "updatedAt": "2026-01-15T08:45:00Z",
+    "createdBy": {
+      "id": "user-003",
+      "name": "HR Team"
+    }
+  },
+  {
+    "id": "batch-q4-partners",
+    "name": "Q4 Partner NDAs",
+    "description": "NDAs and MSAs for Q4 partnership deals",
+    "status": "completed",
+    "contractIds": ["ctr-001", "ctr-008"],
+    "totalContracts": 2,
+    "signedCount": 2,
+    "pendingCount": 0,
+    "completedCount": 2,
+    "createdAt": "2025-09-01T09:00:00Z",
+    "updatedAt": "2025-12-18T14:22:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen"
+    }
+  },
+  {
+    "id": "batch-q1-contractors",
+    "name": "Q1 Contractor Agreements",
+    "description": "Contractor agreements for Q1 projects",
+    "status": "in_progress",
+    "contractIds": ["ctr-007", "ctr-012"],
+    "totalContracts": 2,
+    "signedCount": 1,
+    "pendingCount": 1,
+    "completedCount": 0,
+    "createdAt": "2026-01-13T10:00:00Z",
+    "updatedAt": "2026-01-14T09:30:00Z",
+    "createdBy": {
+      "id": "user-002",
+      "name": "Alex Kim"
+    }
+  }
+]

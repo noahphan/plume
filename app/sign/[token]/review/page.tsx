@@ -2,11 +2,11 @@
 
 import { use } from "react";
 import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, ChevronUp, ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { GlassCard } from "@/components/ui/glass-card";
-import { DocumentPreview } from "@/components/features/document-preview";
+import { SOWDocument } from "@/components/features/sow-document";
 
 export default function ReviewDocumentPage({
   params,
@@ -14,44 +14,81 @@ export default function ReviewDocumentPage({
   params: Promise<{ token: string }>;
 }) {
   const { token } = use(params);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 6;
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col min-h-screen">
       {/* Header */}
-      <div className="p-4 border-b border-[var(--color-border-subtle)] bg-[var(--color-background-base)]/80 backdrop-blur-xl">
+      <div className={cn(
+        "sticky top-0 z-10 p-4 border-b border-[var(--color-border-subtle)]",
+        "bg-[var(--color-surface-glass)] backdrop-blur-xl"
+      )}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="font-semibold text-[var(--color-text-primary)]">
+            <h1 className="text-h3 text-[var(--color-text-primary)]">
               Review Document
             </h1>
-            <p className="text-sm text-[var(--color-text-muted)]">
+            <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)]">
               Please review the document before signing
             </p>
           </div>
-          <Button variant="secondary" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            Download
-          </Button>
+          <div className="flex items-center gap-3">
+            {/* Page Navigation */}
+            <div className="hidden sm:flex items-center gap-2 bg-[var(--color-background-subtle)] rounded-[var(--radius-lg)] px-3 py-1.5 border border-[var(--color-border-subtle)]">
+              <button
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="p-1 rounded-md disabled:opacity-30 hover:bg-[var(--color-surface-glass-hover)] transition-colors"
+              >
+                <ChevronUp className="w-4 h-4" />
+              </button>
+              <span className="text-[var(--text-body-sm)] font-medium text-[var(--color-text-secondary)] min-w-[80px] text-center">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                className="p-1 rounded-md disabled:opacity-30 hover:bg-[var(--color-surface-glass-hover)] transition-colors"
+              >
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </div>
+            <Button variant="secondary" size="sm">
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Document Viewer */}
-      <div className="flex-1 bg-[var(--color-background-elevated)]">
-        <DocumentPreview pages={4} showControls={true} />
+      <div className="flex-1 overflow-y-auto bg-[var(--color-background-subtle)] py-8">
+        <SOWDocument className="rounded-[var(--radius-xl)] border border-[var(--color-border-subtle)]" />
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-[var(--color-border-subtle)] bg-[var(--color-background-base)]/80 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <p className="text-sm text-[var(--color-text-muted)] hidden sm:block">
-            By continuing, you confirm you have reviewed the document.
+      <div className={cn(
+        "sticky bottom-0 p-4 border-t border-[var(--color-border-subtle)]",
+        "bg-[var(--color-surface-glass)] backdrop-blur-xl"
+      )}>
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
+          <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)] hidden sm:block">
+            By continuing, you confirm you have reviewed the full document.
           </p>
-          <Button asChild size="lg">
-            <Link href={`/sign/${token}/sign`}>
-              Continue to Sign
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </Button>
+          <div className="flex items-center gap-3 ml-auto">
+            <Button variant="ghost" asChild>
+              <Link href={`/sign/${token}/consent`}>
+                Back
+              </Link>
+            </Button>
+            <Button asChild size="lg">
+              <Link href={`/sign/${token}/sign`}>
+                Continue to Sign
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

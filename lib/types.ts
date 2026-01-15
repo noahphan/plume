@@ -57,6 +57,8 @@ export interface Contract {
   };
   signers: Signer[];
   variables?: Record<string, string>;
+  batchId?: string;
+  batchName?: string;
 }
 
 /**
@@ -198,6 +200,7 @@ export interface ContractFilters {
   search?: string;
   dateFrom?: string;
   dateTo?: string;
+  batchId?: string;
 }
 
 /**
@@ -206,4 +209,53 @@ export interface ContractFilters {
 export interface SortOptions {
   field: "createdAt" | "updatedAt" | "title" | "status";
   direction: "asc" | "desc";
+}
+
+/**
+ * Batch/Group for bulk operations
+ */
+export interface ContractBatch {
+  id: string;
+  name: string;
+  description?: string;
+  status: "pending" | "in_progress" | "completed" | "partial";
+  contractIds: string[];
+  totalContracts: number;
+  signedCount: number;
+  pendingCount: number;
+  completedCount: number;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: {
+    id: string;
+    name: string;
+  };
+}
+
+/**
+ * Batch Statistics
+ */
+export interface BatchStats {
+  total: number;
+  signed: number;
+  pending: number;
+  viewed: number;
+  completed: number;
+  percentComplete: number;
+}
+
+/**
+ * Bulk Action Types
+ */
+export type BulkActionType = "send" | "resend" | "void" | "download" | "remind";
+
+/**
+ * Bulk Action Result
+ */
+export interface BulkActionResult {
+  action: BulkActionType;
+  totalSelected: number;
+  successful: number;
+  failed: number;
+  errors?: { contractId: string; error: string }[];
 }

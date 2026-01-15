@@ -19,15 +19,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={id}
           ref={ref}
           className={cn(
-            "flex h-10 w-full rounded-lg px-4 py-2 text-sm",
-            "bg-[var(--color-surface-glass)] backdrop-blur-xl",
-            "border border-[var(--color-border-subtle)]",
+            "flex h-11 w-full rounded-[var(--radius-lg)] px-4 py-2.5",
+            "text-[var(--text-body)] font-normal",
+            "bg-[var(--color-background-pure)]",
+            "border border-[var(--color-border-default)]",
+            "shadow-[var(--shadow-xs)]",
             "text-[var(--color-text-primary)]",
             "placeholder:text-[var(--color-text-muted)]",
-            "transition-all duration-150",
-            "focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]",
-            "disabled:cursor-not-allowed disabled:opacity-50",
-            error && "border-[var(--color-error)] focus:border-[var(--color-error)] focus:ring-[var(--color-error)]",
+            "transition-all duration-[var(--duration-fast)]",
+            "focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-muted)] focus:shadow-[var(--shadow-sm)]",
+            "hover:border-[var(--color-border-strong)]",
+            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-[var(--color-background-subtle)]",
+            error && "border-[var(--color-error)] focus:border-[var(--color-error)] focus:ring-[var(--color-error-muted)]",
             className
           )}
           aria-invalid={error}
