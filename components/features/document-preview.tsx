@@ -2,14 +2,26 @@
 
 import { useState, useRef } from "react";
 import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import type { TemplateCategory } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { ContractDocument } from "@/components/features/contract-document";
+
+const seeded = (seed: number) => {
+  const value = Math.sin(seed) * 10000;
+  return value - Math.floor(value);
+};
+
+const CONTENT_LINE_WIDTHS = Array.from({ length: 8 }, (_, i) => 70 + seeded(i + 1) * 30);
+const SECTION_LINE_WIDTHS = Array.from({ length: 5 }, (_, i) => 70 + seeded(i + 101) * 30);
 
 interface DocumentPreviewProps {
   pages?: number;
   className?: string;
   showControls?: boolean;
   onFullscreen?: () => void;
+  templateId?: string | null;
+  templateCategory?: TemplateCategory | null;
 }
 
 export function DocumentPreview({
@@ -17,10 +29,13 @@ export function DocumentPreview({
   className,
   showControls = true,
   onFullscreen,
+  templateId,
+  templateCategory,
 }: DocumentPreviewProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [zoom, setZoom] = useState(100);
   const containerRef = useRef<HTMLDivElement>(null);
+  const showDocument = Boolean(templateId || templateCategory);
 
   const handleZoomIn = () => setZoom((z) => Math.min(z + 25, 200));
   const handleZoomOut = () => setZoom((z) => Math.max(z - 25, 50));
@@ -94,7 +109,16 @@ export function DocumentPreview({
               "aspect-[8.5/11]" // US Letter ratio
             )}
           >
-            {/* Mock document content */}
+          {/* Mock document content */}
+          {showDocument ? (
+            <div className="h-full overflow-hidden">
+              <ContractDocument
+                templateId={templateId ?? undefined}
+                templateCategory={templateCategory ?? undefined}
+                className="shadow-none max-w-none w-full h-full mx-0"
+              />
+            </div>
+          ) : (
             <div className="p-12 h-full">
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
@@ -110,11 +134,11 @@ export function DocumentPreview({
 
               {/* Content lines */}
               <div className="space-y-3 mb-8">
-                {Array.from({ length: 8 }).map((_, i) => (
+                {CONTENT_LINE_WIDTHS.map((width, i) => (
                   <div
                     key={i}
                     className="h-3 bg-gray-100 rounded"
-                    style={{ width: `${Math.random() * 30 + 70}%` }}
+                    style={{ width: `${width}%` }}
                   />
                 ))}
               </div>
@@ -122,11 +146,11 @@ export function DocumentPreview({
               {/* Section */}
               <div className="w-1/2 h-4 bg-gray-200 rounded mb-4" />
               <div className="space-y-3 mb-8">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {SECTION_LINE_WIDTHS.map((width, i) => (
                   <div
                     key={i}
                     className="h-3 bg-gray-100 rounded"
-                    style={{ width: `${Math.random() * 30 + 70}%` }}
+                    style={{ width: `${width}%` }}
                   />
                 ))}
               </div>
@@ -147,6 +171,7 @@ export function DocumentPreview({
                 </div>
               )}
             </div>
+          )}
           </div>
         </div>
       </div>

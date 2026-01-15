@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Confetti, SuccessCheckmark } from "@/components/features/confetti";
 import { useToast } from "@/components/patterns/toast";
+import { useSigningSession } from "@/lib/hooks/use-signing-session";
 
 export default function CompletePage({
   params,
@@ -14,6 +15,7 @@ export default function CompletePage({
   params: Promise<{ token: string }>;
 }) {
   const { token } = use(params);
+  const { session } = useSigningSession(token);
   const { addToast } = useToast();
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -65,7 +67,9 @@ export default function CompletePage({
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-[var(--color-text-muted)]">Document</span>
-              <span className="text-[var(--color-text-primary)]">NDA - Acme Corp</span>
+              <span className="text-[var(--color-text-primary)]">
+                {session?.contractTitle ?? "Signed document"}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-[var(--color-text-muted)]">Signed on</span>

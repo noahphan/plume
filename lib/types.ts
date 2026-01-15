@@ -9,7 +9,7 @@ export type ContractStatus = "draft" | "pending" | "completed" | "voided";
 export type SignerStatus = "pending" | "sent" | "viewed" | "signed" | "declined";
 
 // Template Category
-export type TemplateCategory = "all" | "nda" | "msa" | "sow" | "employment" | "sales";
+export type TemplateCategory = "all" | "sow" | "tos";
 
 // Timeline Event Type
 export type TimelineEventType =

@@ -50,7 +50,12 @@ export function useContract(id: string): UseContractResult {
   const [error, setError] = useState<string | null>(null);
 
   const fetchContract = useCallback(async () => {
-    if (!id) return;
+    if (!id) {
+      setContract(null);
+      setIsLoading(false);
+      setError(null);
+      return;
+    }
     setIsLoading(true);
     setError(null);
     try {

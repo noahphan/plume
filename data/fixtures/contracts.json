@@ -1,16 +1,15 @@
 [
   {
-    "id": "ctr-001",
-    "title": "NDA - Acme Corporation",
-    "status": "completed",
-    "templateId": "tpl-001",
-    "templateName": "Non-Disclosure Agreement (NDA)",
-    "createdAt": "2025-12-15T10:30:00Z",
-    "updatedAt": "2025-12-18T14:22:00Z",
-    "sentAt": "2025-12-15T11:00:00Z",
-    "completedAt": "2025-12-18T14:22:00Z",
-    "batchId": "batch-q4-partners",
-    "batchName": "Q4 Partner NDAs",
+    "id": "ctr-sow-001",
+    "title": "SOW - Brand Refresh & Website Redesign",
+    "status": "pending",
+    "templateId": "tpl-sow-001",
+    "templateName": "Statement of Work (SOW)",
+    "createdAt": "2026-01-20T09:00:00Z",
+    "updatedAt": "2026-01-22T10:30:00Z",
+    "sentAt": "2026-01-20T09:30:00Z",
+    "batchId": "batch-q1-2026",
+    "batchName": "Q1 2026 Client Agreements",
     "createdBy": {
       "id": "user-001",
       "name": "Sarah Chen",
@@ -19,335 +18,39 @@
     "signers": [
       {
         "id": "signer-001",
-        "name": "John Smith",
-        "email": "john@acme.com",
-        "role": "CEO",
+        "name": "Marcus Chen",
+        "email": "marcus.chen@novahealthtech.com",
+        "role": "VP of Marketing",
         "order": 1,
-        "status": "signed",
-        "viewedAt": "2025-12-16T09:15:00Z",
-        "signedAt": "2025-12-16T09:22:00Z"
-      },
+        "status": "viewed",
+        "viewedAt": "2026-01-21T10:45:00Z"
+      }
+    ]
+  },
+  {
+    "id": "ctr-tos-001",
+    "title": "TOS - Plume Cloud Platform",
+    "status": "pending",
+    "templateId": "tpl-tos-001",
+    "templateName": "Terms of Service (TOS)",
+    "createdAt": "2026-01-21T11:00:00Z",
+    "updatedAt": "2026-01-21T11:15:00Z",
+    "sentAt": "2026-01-21T11:15:00Z",
+    "batchId": "batch-q1-2026",
+    "batchName": "Q1 2026 Client Agreements",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [
       {
         "id": "signer-002",
-        "name": "Emily Davis",
-        "email": "emily@company.com",
-        "role": "Legal Counsel",
-        "order": 2,
-        "status": "signed",
-        "viewedAt": "2025-12-18T14:10:00Z",
-        "signedAt": "2025-12-18T14:22:00Z"
-      }
-    ]
-  },
-  {
-    "id": "ctr-002",
-    "title": "MSA - TechStart Inc.",
-    "status": "pending",
-    "templateId": "tpl-002",
-    "templateName": "Master Services Agreement (MSA)",
-    "createdAt": "2026-01-10T09:00:00Z",
-    "updatedAt": "2026-01-10T09:30:00Z",
-    "sentAt": "2026-01-10T09:30:00Z",
-    "batchId": "batch-q1-clients",
-    "batchName": "Q1 2026 Client Onboarding",
-    "createdBy": {
-      "id": "user-001",
-      "name": "Sarah Chen",
-      "email": "sarah@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-003",
-        "name": "Michael Brown",
-        "email": "michael@techstart.io",
-        "role": "Founder",
-        "order": 1,
-        "status": "viewed",
-        "viewedAt": "2026-01-11T10:45:00Z"
-      },
-      {
-        "id": "signer-004",
-        "name": "Sarah Chen",
-        "email": "sarah@company.com",
-        "role": "Account Manager",
-        "order": 2,
-        "status": "pending"
-      }
-    ]
-  },
-  {
-    "id": "ctr-003",
-    "title": "SOW - Website Redesign",
-    "status": "pending",
-    "templateId": "tpl-003",
-    "templateName": "Statement of Work (SOW)",
-    "createdAt": "2026-01-12T14:00:00Z",
-    "updatedAt": "2026-01-12T14:15:00Z",
-    "sentAt": "2026-01-12T14:15:00Z",
-    "batchId": "batch-q1-clients",
-    "batchName": "Q1 2026 Client Onboarding",
-    "createdBy": {
-      "id": "user-002",
-      "name": "Alex Kim",
-      "email": "alex@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-005",
-        "name": "Rachel Green",
-        "email": "rachel@designco.com",
-        "role": "Creative Director",
+        "name": "Jordan Lee",
+        "email": "jordan@plumecloud.io",
+        "role": "IT Manager",
         "order": 1,
         "status": "sent"
-      }
-    ]
-  },
-  {
-    "id": "ctr-004",
-    "title": "Offer Letter - David Park",
-    "status": "completed",
-    "templateId": "tpl-004",
-    "templateName": "Employment Offer Letter",
-    "createdAt": "2025-11-20T11:00:00Z",
-    "updatedAt": "2025-11-22T16:30:00Z",
-    "sentAt": "2025-11-20T11:30:00Z",
-    "completedAt": "2025-11-22T16:30:00Z",
-    "batchId": "batch-jan-hiring",
-    "batchName": "January 2026 Hiring",
-    "createdBy": {
-      "id": "user-003",
-      "name": "HR Team",
-      "email": "hr@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-006",
-        "name": "David Park",
-        "email": "david.park@email.com",
-        "role": "Candidate",
-        "order": 1,
-        "status": "signed",
-        "viewedAt": "2025-11-21T09:00:00Z",
-        "signedAt": "2025-11-22T16:30:00Z"
-      }
-    ]
-  },
-  {
-    "id": "ctr-005",
-    "title": "NDA - Stealth Startup",
-    "status": "draft",
-    "templateId": "tpl-001",
-    "templateName": "Non-Disclosure Agreement (NDA)",
-    "createdAt": "2026-01-14T16:00:00Z",
-    "updatedAt": "2026-01-14T16:00:00Z",
-    "createdBy": {
-      "id": "user-001",
-      "name": "Sarah Chen",
-      "email": "sarah@company.com"
-    },
-    "signers": []
-  },
-  {
-    "id": "ctr-006",
-    "title": "Sales Order - Enterprise License",
-    "status": "voided",
-    "templateId": "tpl-005",
-    "templateName": "Sales Order Agreement",
-    "createdAt": "2025-10-05T08:00:00Z",
-    "updatedAt": "2025-10-12T10:00:00Z",
-    "sentAt": "2025-10-05T08:30:00Z",
-    "createdBy": {
-      "id": "user-004",
-      "name": "Mark Wilson",
-      "email": "mark@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-007",
-        "name": "Jennifer Lee",
-        "email": "jlee@bigcorp.com",
-        "role": "Procurement",
-        "order": 1,
-        "status": "declined"
-      }
-    ]
-  },
-  {
-    "id": "ctr-007",
-    "title": "Contractor - UI Design",
-    "status": "pending",
-    "templateId": "tpl-006",
-    "templateName": "Contractor Agreement",
-    "createdAt": "2026-01-13T10:00:00Z",
-    "updatedAt": "2026-01-13T10:30:00Z",
-    "sentAt": "2026-01-13T10:30:00Z",
-    "batchId": "batch-q1-contractors",
-    "batchName": "Q1 Contractor Agreements",
-    "createdBy": {
-      "id": "user-002",
-      "name": "Alex Kim",
-      "email": "alex@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-008",
-        "name": "Nina Patel",
-        "email": "nina@freelance.design",
-        "role": "Contractor",
-        "order": 1,
-        "status": "viewed",
-        "viewedAt": "2026-01-14T08:00:00Z"
-      }
-    ]
-  },
-  {
-    "id": "ctr-008",
-    "title": "MSA - Global Partners Ltd",
-    "status": "completed",
-    "templateId": "tpl-002",
-    "templateName": "Master Services Agreement (MSA)",
-    "createdAt": "2025-09-01T09:00:00Z",
-    "updatedAt": "2025-09-10T11:45:00Z",
-    "sentAt": "2025-09-01T10:00:00Z",
-    "completedAt": "2025-09-10T11:45:00Z",
-    "batchId": "batch-q4-partners",
-    "batchName": "Q4 Partner NDAs",
-    "createdBy": {
-      "id": "user-001",
-      "name": "Sarah Chen",
-      "email": "sarah@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-009",
-        "name": "Robert Taylor",
-        "email": "rtaylor@globalpartners.com",
-        "role": "VP Operations",
-        "order": 1,
-        "status": "signed",
-        "viewedAt": "2025-09-05T14:00:00Z",
-        "signedAt": "2025-09-05T14:15:00Z"
-      },
-      {
-        "id": "signer-010",
-        "name": "Amanda White",
-        "email": "awhite@globalpartners.com",
-        "role": "Legal",
-        "order": 2,
-        "status": "signed",
-        "viewedAt": "2025-09-10T11:30:00Z",
-        "signedAt": "2025-09-10T11:45:00Z"
-      }
-    ]
-  },
-  {
-    "id": "ctr-009",
-    "title": "NDA - Innovation Labs",
-    "status": "pending",
-    "templateId": "tpl-001",
-    "templateName": "Non-Disclosure Agreement (NDA)",
-    "createdAt": "2026-01-14T09:00:00Z",
-    "updatedAt": "2026-01-14T09:15:00Z",
-    "sentAt": "2026-01-14T09:15:00Z",
-    "batchId": "batch-q1-clients",
-    "batchName": "Q1 2026 Client Onboarding",
-    "createdBy": {
-      "id": "user-001",
-      "name": "Sarah Chen",
-      "email": "sarah@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-011",
-        "name": "Chris Martin",
-        "email": "chris@innovationlabs.co",
-        "role": "CTO",
-        "order": 1,
-        "status": "sent"
-      }
-    ]
-  },
-  {
-    "id": "ctr-010",
-    "title": "Offer Letter - Maria Santos",
-    "status": "pending",
-    "templateId": "tpl-004",
-    "templateName": "Employment Offer Letter",
-    "createdAt": "2026-01-15T08:00:00Z",
-    "updatedAt": "2026-01-15T08:30:00Z",
-    "sentAt": "2026-01-15T08:30:00Z",
-    "batchId": "batch-jan-hiring",
-    "batchName": "January 2026 Hiring",
-    "createdBy": {
-      "id": "user-003",
-      "name": "HR Team",
-      "email": "hr@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-012",
-        "name": "Maria Santos",
-        "email": "maria.santos@email.com",
-        "role": "Candidate",
-        "order": 1,
-        "status": "sent"
-      }
-    ]
-  },
-  {
-    "id": "ctr-011",
-    "title": "Offer Letter - James Wilson",
-    "status": "pending",
-    "templateId": "tpl-004",
-    "templateName": "Employment Offer Letter",
-    "createdAt": "2026-01-15T08:15:00Z",
-    "updatedAt": "2026-01-15T08:45:00Z",
-    "sentAt": "2026-01-15T08:45:00Z",
-    "batchId": "batch-jan-hiring",
-    "batchName": "January 2026 Hiring",
-    "createdBy": {
-      "id": "user-003",
-      "name": "HR Team",
-      "email": "hr@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-013",
-        "name": "James Wilson",
-        "email": "james.wilson@email.com",
-        "role": "Candidate",
-        "order": 1,
-        "status": "viewed",
-        "viewedAt": "2026-01-15T10:00:00Z"
-      }
-    ]
-  },
-  {
-    "id": "ctr-012",
-    "title": "Contractor - Backend Dev",
-    "status": "pending",
-    "templateId": "tpl-006",
-    "templateName": "Contractor Agreement",
-    "createdAt": "2026-01-13T11:00:00Z",
-    "updatedAt": "2026-01-13T11:30:00Z",
-    "sentAt": "2026-01-13T11:30:00Z",
-    "batchId": "batch-q1-contractors",
-    "batchName": "Q1 Contractor Agreements",
-    "createdBy": {
-      "id": "user-002",
-      "name": "Alex Kim",
-      "email": "alex@company.com"
-    },
-    "signers": [
-      {
-        "id": "signer-014",
-        "name": "Tom Anderson",
-        "email": "tom@devfreelance.io",
-        "role": "Contractor",
-        "order": 1,
-        "status": "signed",
-        "viewedAt": "2026-01-14T09:00:00Z",
-        "signedAt": "2026-01-14T09:30:00Z"
       }
     ]
   }

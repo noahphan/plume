@@ -182,7 +182,7 @@ function ContractBuilderContent() {
         {/* Preview Panel */}
         <div className="flex-1">
           <GlassCard padding="none" className="h-[600px] lg:sticky lg:top-24">
-            <DocumentPreview pages={4} />
+            <DocumentPreview pages={4} templateId={template?.id} />
           </GlassCard>
         </div>
       </div>

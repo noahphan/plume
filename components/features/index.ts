@@ -5,3 +5,5 @@ export { ContractCard } from "./contract-card";
 export { TemplateCard } from "./template-card";
 export { SignerCard } from "./signer-card";
 export { SOWDocument } from "./sow-document";
+export { TOSDocument } from "./tos-document";
+export { ContractDocument } from "./contract-document";

@@ -135,11 +135,8 @@ export const SIGNER_STATUSES = {
  */
 export const TEMPLATE_CATEGORIES = [
   { id: "all", label: "All Templates" },
-  { id: "nda", label: "NDAs" },
-  { id: "msa", label: "Master Agreements" },
   { id: "sow", label: "Statements of Work" },
-  { id: "employment", label: "Employment" },
-  { id: "sales", label: "Sales" },
+  { id: "tos", label: "Terms of Service" },
 ] as const;
 
 /**

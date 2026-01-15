@@ -1,12 +1,23 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Download, ChevronUp, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import {
+  ArrowRight,
+  Download,
+  ChevronUp,
+  ChevronDown,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSigningSession } from "@/lib/hooks/use-signing-session";
+import { useContract } from "@/lib/hooks/use-contracts";
 import { Button } from "@/components/ui/button";
-import { SOWDocument } from "@/components/features/sow-document";
+import { GlassCard } from "@/components/ui/glass-card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ContractDocument } from "@/components/features/contract-document";
 
 export default function ReviewDocumentPage({
   params,
@@ -15,15 +26,86 @@ export default function ReviewDocumentPage({
 }) {
   const { token } = use(params);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 6;
+  const { session, isLoading, error } = useSigningSession(token);
+  const { contract, isLoading: contractLoading } = useContract(session?.contractId ?? "");
+  const totalPages = session?.documentPages ?? 4;
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <Skeleton variant="circular" className="w-16 h-16 mx-auto mb-8" />
+          <Skeleton className="h-6 w-3/4 mx-auto mb-3" />
+          <Skeleton className="h-4 w-full mb-2" />
+          <Skeleton className="h-4 w-2/3 mx-auto" />
+        </GlassCard>
+      </div>
+    );
+  }
+
+  if (error || !session) {
+    return (
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-8">
+            <AlertTriangle className="w-8 h-8 text-red-600" />
+          </div>
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
+            Invalid or Expired Link
+          </h1>
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)]">
+            This signing link is no longer valid. Please contact the sender.
+          </p>
+        </GlassCard>
+      </div>
+    );
+  }
+
+  if (session.status === "completed") {
+    return (
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-8">
+            <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+          </div>
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
+            Already Signed
+          </h1>
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)]">
+            You have already signed this document. A copy has been sent to your email.
+          </p>
+        </GlassCard>
+      </div>
+    );
+  }
+
+  if (session.status === "expired") {
+    return (
+      <div className="flex-1 flex items-center justify-center p-6">
+        <GlassCard className="max-w-md w-full text-center p-10">
+          <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-8">
+            <Clock className="w-8 h-8 text-amber-600" />
+          </div>
+          <h1 className="text-h2 text-[var(--color-text-primary)] mb-3">
+            Link Expired
+          </h1>
+          <p className="text-[var(--text-body)] text-[var(--color-text-secondary)]">
+            This signing link has expired. Please contact the sender for a new one.
+          </p>
+        </GlassCard>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col min-h-screen">
       {/* Header */}
-      <div className={cn(
-        "sticky top-0 z-10 p-4 border-b border-[var(--color-border-subtle)]",
-        "bg-[var(--color-surface-glass)] backdrop-blur-xl"
-      )}>
+      <div
+        className={cn(
+          "sticky top-0 z-10 p-4 border-b border-[var(--color-border-subtle)]",
+          "bg-[var(--color-surface-glass)] backdrop-blur-xl"
+        )}
+      >
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-h3 text-[var(--color-text-primary)]">
@@ -64,23 +146,32 @@ export default function ReviewDocumentPage({
 
       {/* Document Viewer */}
       <div className="flex-1 overflow-y-auto bg-[var(--color-background-subtle)] py-8">
-        <SOWDocument className="rounded-[var(--radius-xl)] border border-[var(--color-border-subtle)]" />
+        {contractLoading ? (
+          <div className="max-w-4xl mx-auto">
+            <Skeleton className="h-[640px] rounded-[var(--radius-xl)]" />
+          </div>
+        ) : (
+          <ContractDocument
+            templateId={contract?.templateId}
+            className="rounded-[var(--radius-xl)] border border-[var(--color-border-subtle)]"
+          />
+        )}
       </div>
 
       {/* Footer */}
-      <div className={cn(
-        "sticky bottom-0 p-4 border-t border-[var(--color-border-subtle)]",
-        "bg-[var(--color-surface-glass)] backdrop-blur-xl"
-      )}>
+      <div
+        className={cn(
+          "sticky bottom-0 p-4 border-t border-[var(--color-border-subtle)]",
+          "bg-[var(--color-surface-glass)] backdrop-blur-xl"
+        )}
+      >
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)] hidden sm:block">
             By continuing, you confirm you have reviewed the full document.
           </p>
           <div className="flex items-center gap-3 ml-auto">
             <Button variant="ghost" asChild>
-              <Link href={`/sign/${token}/consent`}>
-                Back
-              </Link>
+              <Link href={`/sign/${token}/consent`}>Back</Link>
             </Button>
             <Button asChild size="lg">
               <Link href={`/sign/${token}/sign`}>

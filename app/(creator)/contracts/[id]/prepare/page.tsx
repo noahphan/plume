@@ -4,6 +4,7 @@ import { useState, use } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, ArrowRight, ArrowLeft, GripVertical, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useContract } from "@/lib/hooks/use-contracts";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,7 @@ export default function PrepareSignaturePage({
 }) {
   const { id } = use(params);
   const router = useRouter();
+  const { contract } = useContract(id);
   const [signers, setSigners] = useState<Signer[]>([]);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [sequentialSigning, setSequentialSigning] = useState(false);
@@ -154,7 +156,7 @@ export default function PrepareSignaturePage({
         {/* Document Preview */}
         <div className="flex-1">
           <GlassCard padding="none" className="h-[600px] lg:sticky lg:top-24">
-            <DocumentPreview pages={4} />
+            <DocumentPreview pages={4} templateId={contract?.templateId} />
           </GlassCard>
         </div>
       </div>

@@ -104,17 +104,17 @@ plume/
 ### Creator Flow
 - `/dashboard` - Contract dashboard
 - `/templates` - Template gallery
-- `/contracts/new?templateId=tpl-001` - Create new contract
-- `/contracts/ctr-001` - Contract detail
-- `/contracts/ctr-001/evidence` - Evidence bundle
+- `/contracts/new?templateId=tpl-sow-001` - Create new contract
+- `/contracts/ctr-sow-001` - Contract detail
 
 ### Signer Flow
-- `/sign/demo-token-abc123` - Start signing flow
-- `/sign/demo-token-abc123/consent` - Consent disclosure
-- `/sign/demo-token-abc123/verify` - OTP verification
-- `/sign/demo-token-abc123/review` - Document review
-- `/sign/demo-token-abc123/sign` - Add signature
-- `/sign/demo-token-abc123/complete` - Success page
+- `/sign/sow-brandrefresh-2026` - Start signing flow
+- `/sign/sow-brandrefresh-2026/consent` - Consent disclosure
+- `/sign/sow-brandrefresh-2026/verify` - OTP verification
+- `/sign/sow-brandrefresh-2026/review` - Document review
+- `/sign/sow-brandrefresh-2026/sign` - Add signature
+- `/sign/sow-brandrefresh-2026/complete` - Success page
+- `/sign/tos-plumecloud-2026` - TOS signing flow
 
 ## 🚢 Deployment
 

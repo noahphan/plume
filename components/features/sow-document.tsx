@@ -192,7 +192,7 @@ export function SOWDocument({ className }: SOWDocumentProps) {
 
       {/* Footer */}
       <div className="mt-12 pt-6 border-t border-gray-200 text-center text-xs text-gray-400">
-        <p>This Statement of Work is subject to the Master Services Agreement dated January 15, 2026.</p>
+        <p>This Statement of Work is subject to the Services Agreement dated January 15, 2026.</p>
         <p className="mt-1">Page 1 of 6 • Generated via Plume</p>
       </div>
     </div>

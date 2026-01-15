@@ -111,6 +111,18 @@ export async function getSigningSession(
 }
 
 /**
+ * Get signing session by contract ID
+ */
+export async function getSigningSessionByContractId(
+  contractId: string
+): Promise<SigningSession | null> {
+  await simulateApiDelay();
+  const sessions = signingSessions.filter((s) => s.contractId === contractId);
+  const validSession = sessions.find((s) => s.status === "valid");
+  return validSession || sessions[0] || null;
+}
+
+/**
  * Verify OTP (mock - accepts any 6-digit code)
  */
 export async function verifyOtp(

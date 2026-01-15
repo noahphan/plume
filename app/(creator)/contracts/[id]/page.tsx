@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -11,12 +11,13 @@ import {
   FileText,
   MoreHorizontal,
   ExternalLink,
+  Copy,
 } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import { useContract } from "@/lib/hooks/use-contracts";
-import { getContractTimeline } from "@/lib/api/mock";
+import { getContractTimeline, getSigningSessionByContractId } from "@/lib/api/mock";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -33,7 +34,7 @@ import {
   ModalFooter,
 } from "@/components/patterns/modal";
 import { useToast } from "@/components/patterns/toast";
-import type { TimelineEvent } from "@/lib/types";
+import type { SigningSession, TimelineEvent } from "@/lib/types";
 
 export default function ContractDetailPage({
   params,
@@ -47,6 +48,10 @@ export default function ContractDetailPage({
   const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   const [timelineLoading, setTimelineLoading] = useState(true);
   const [voidModalOpen, setVoidModalOpen] = useState(false);
+  const [signingSession, setSigningSession] = useState<SigningSession | null>(null);
+  const [sessionLoading, setSessionLoading] = useState(true);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [origin, setOrigin] = useState("");
 
   // Load timeline
   useState(() => {
@@ -55,6 +60,19 @@ export default function ContractDetailPage({
       setTimelineLoading(false);
     });
   });
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  useEffect(() => {
+    if (!id) return;
+    setSessionLoading(true);
+    getSigningSessionByContractId(id).then((session) => {
+      setSigningSession(session);
+      setSessionLoading(false);
+    });
+  }, [id]);
 
   const handleVoid = () => {
     // Mock void action
@@ -72,6 +90,28 @@ export default function ContractDetailPage({
       title: "Reminder sent",
       description: "A reminder has been sent to the signer.",
     });
+  };
+
+  const handleCopyLink = async () => {
+    if (!signingSession) return;
+    const path = `/sign/${signingSession.token}`;
+    const url = origin ? `${origin}${path}` : path;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedLink(true);
+      addToast({
+        type: "success",
+        title: "Signing link copied",
+      });
+      setTimeout(() => setCopiedLink(false), 2000);
+    } catch (err) {
+      console.error(err);
+      addToast({
+        type: "error",
+        title: "Copy failed",
+        description: "Unable to copy the signing link.",
+      });
+    }
   };
 
   if (isLoading) {
@@ -203,6 +243,44 @@ export default function ContractDetailPage({
           )}
         </div>
       </GlassCard>
+
+      {!sessionLoading && signingSession ? (
+        <GlassCard padding="md" className="mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-sm text-[var(--color-text-muted)] mb-1">Signing link</p>
+              <p className="text-sm font-mono text-[var(--color-text-secondary)] break-all">
+                {origin ? `${origin}/sign/${signingSession.token}` : `/sign/${signingSession.token}`}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-2">
+                Recipient: {signingSession.signerName} • {signingSession.signerEmail}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">
+                Status: {signingSession.status}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="secondary" size="sm" asChild>
+                <Link href={`/sign/${signingSession.token}`} target="_blank" rel="noreferrer">
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Open
+                </Link>
+              </Button>
+              <Button variant="ghost" size="sm" onClick={handleCopyLink}>
+                <Copy className="w-4 h-4 mr-2" />
+                {copiedLink ? "Copied" : "Copy"}
+              </Button>
+            </div>
+          </div>
+        </GlassCard>
+      ) : null}
+      {!sessionLoading && !signingSession ? (
+        <GlassCard padding="md" className="mb-6">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            No active signing link is available for this contract yet.
+          </p>
+        </GlassCard>
+      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Timeline */}

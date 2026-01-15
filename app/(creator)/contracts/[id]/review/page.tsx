@@ -38,11 +38,10 @@ export default function ReviewSendPage({
 
   // Mock data for the review
   const mockContract = {
-    title: "NDA - Acme Corporation",
-    templateName: "Non-Disclosure Agreement (NDA)",
+    title: "SOW - Brand Refresh & Website Redesign",
+    templateName: "Statement of Work (SOW)",
     signers: [
-      { name: "John Smith", email: "john@acme.com", role: "CEO" },
-      { name: "Emily Davis", email: "emily@company.com", role: "Legal" },
+      { name: "Marcus Chen", email: "marcus.chen@novahealthtech.com", role: "VP of Marketing" },
     ],
   };
 

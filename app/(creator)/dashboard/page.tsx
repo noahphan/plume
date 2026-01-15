@@ -1,35 +1,43 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  LayoutGrid, 
-  List, 
-  Search, 
-  Filter, 
+import {
+  LayoutGrid,
+  List,
+  Search,
+  Filter,
   FileText,
-  Check,
   Send,
-  RefreshCw,
-  Ban,
-  Download,
-  Bell,
-  ChevronDown,
   X,
   Users,
-  Layers
+  Layers,
+  Upload,
+  Plus,
+  Sparkles,
+  Copy,
+  ExternalLink,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { useContracts, useContractStats } from "@/lib/hooks/use-contracts";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { SkeletonCard } from "@/components/ui/skeleton";
 import { ContractCard } from "@/components/features/contract-card";
+import { DocumentPreview } from "@/components/features/document-preview";
+import { useToast } from "@/components/patterns/toast";
 import { ANIMATIONS } from "@/lib/constants";
-import type { ContractStatus, Contract } from "@/lib/types";
+import type { ContractStatus } from "@/lib/types";
 
 const STATUS_FILTERS: { value: ContractStatus | "all"; label: string }[] = [
   { value: "all", label: "All" },
@@ -41,11 +49,48 @@ const STATUS_FILTERS: { value: ContractStatus | "all"; label: string }[] = [
 
 const BATCH_FILTERS = [
   { value: "all", label: "All Batches" },
-  { value: "batch-q1-clients", label: "Q1 2026 Client Onboarding" },
-  { value: "batch-jan-hiring", label: "January 2026 Hiring" },
-  { value: "batch-q1-contractors", label: "Q1 Contractor Agreements" },
-  { value: "batch-q4-partners", label: "Q4 Partner NDAs" },
+  { value: "batch-q1-2026", label: "Q1 2026 Client Agreements" },
 ];
+
+const DEMO_CONFIG = {
+  contractId: "ctr-sow-001",
+  contractTitle: "SOW - Brand Refresh & Website Redesign",
+  templateId: "tpl-sow-001",
+  signerToken: "sow-brandrefresh-2026",
+  pages: 6,
+};
+
+type BulkBatchAction = "upload" | "create" | "send";
+
+const BULK_ACTION_LABELS: Record<BulkBatchAction, string> = {
+  upload: "Bulk upload",
+  create: "Bulk create",
+  send: "Bulk send",
+};
+
+const BULK_REPORTING_OPTIONS = [
+  { value: "daily", label: "Daily reporting" },
+  { value: "weekly", label: "Weekly reporting" },
+  { value: "biweekly", label: "Bi-weekly reporting" },
+  { value: "monthly", label: "Monthly reporting" },
+];
+
+const getDefaultTargetDate = () => {
+  const target = new Date();
+  target.setDate(target.getDate() + 14);
+  return target.toISOString().split("T")[0];
+};
+
+interface BulkBatchSummary {
+  id: string;
+  action: BulkBatchAction;
+  createdAt: string;
+  total: number;
+  pending: number;
+  completed: number;
+  dueDate?: string;
+  reportingCadence: string;
+}
 
 export default function DashboardPage() {
   const [viewMode, setViewMode] = useState<"card" | "list">("card");
@@ -53,7 +98,12 @@ export default function DashboardPage() {
   const [statusFilter, setStatusFilter] = useState<ContractStatus | "all">("all");
   const [batchFilter, setBatchFilter] = useState<string>("all");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [showBulkActions, setShowBulkActions] = useState(false);
+  const [bulkTargetDate, setBulkTargetDate] = useState(getDefaultTargetDate);
+  const [bulkReportingCadence, setBulkReportingCadence] = useState("weekly");
+  const [bulkBatchSummary, setBulkBatchSummary] = useState<BulkBatchSummary | null>(null);
+  const [origin, setOrigin] = useState("");
+  const [demoLinkCopied, setDemoLinkCopied] = useState(false);
+  const { addToast } = useToast();
 
   const filters = useMemo(
     () => ({
@@ -70,18 +120,18 @@ export default function DashboardPage() {
   // Filter contracts by batch if needed
   const filteredContracts = useMemo(() => {
     if (batchFilter === "all") return contracts;
-    return contracts.filter(c => c.batchId === batchFilter);
+    return contracts.filter((c) => c.batchId === batchFilter);
   }, [contracts, batchFilter]);
 
   // Batch stats
   const batchStats = useMemo(() => {
     if (batchFilter === "all") return null;
-    const batchContracts = contracts.filter(c => c.batchId === batchFilter);
+    const batchContracts = contracts.filter((c) => c.batchId === batchFilter);
     const total = batchContracts.length;
-    const completed = batchContracts.filter(c => c.status === "completed").length;
-    const pending = batchContracts.filter(c => c.status === "pending").length;
-    const signedSigners = batchContracts.flatMap(c => c.signers.filter(s => s.status === "signed")).length;
-    const totalSigners = batchContracts.flatMap(c => c.signers).length;
+    const completed = batchContracts.filter((c) => c.status === "completed").length;
+    const pending = batchContracts.filter((c) => c.status === "pending").length;
+    const signedSigners = batchContracts.flatMap((c) => c.signers.filter((s) => s.status === "signed")).length;
+    const totalSigners = batchContracts.flatMap((c) => c.signers).length;
     return { total, completed, pending, signedSigners, totalSigners };
   }, [contracts, batchFilter]);
 
@@ -90,7 +140,7 @@ export default function DashboardPage() {
     if (selectedIds.size === filteredContracts.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(filteredContracts.map(c => c.id)));
+      setSelectedIds(new Set(filteredContracts.map((c) => c.id)));
     }
   };
 
@@ -104,15 +154,57 @@ export default function DashboardPage() {
     setSelectedIds(newSelected);
   };
 
-  const handleBulkAction = (action: string) => {
-    console.log(`Bulk action: ${action} on ${selectedIds.size} contracts`);
-    // In real app, this would call the API
+  const handleBulkAction = (action: BulkBatchAction) => {
+    const selectedContracts = filteredContracts.filter((contract) => selectedIds.has(contract.id));
+    const total = selectedContracts.length;
+    const pending = selectedContracts.filter((contract) => contract.status === "pending").length;
+    const completed = selectedContracts.filter((contract) => contract.status === "completed").length;
+
+    console.log(`Bulk action: ${action} on ${total} contracts`);
+
+    setBulkBatchSummary({
+      id: `bulk-${action}-${Date.now()}`,
+      action,
+      createdAt: new Date().toISOString(),
+      total,
+      pending,
+      completed,
+      dueDate: bulkTargetDate || undefined,
+      reportingCadence: bulkReportingCadence,
+    });
+
     setSelectedIds(new Set());
-    setShowBulkActions(false);
   };
 
   const clearSelection = () => {
     setSelectedIds(new Set());
+  };
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  const demoSignerLink = origin
+    ? `${origin}/sign/${DEMO_CONFIG.signerToken}`
+    : `/sign/${DEMO_CONFIG.signerToken}`;
+
+  const handleCopyDemoLink = async () => {
+    try {
+      await navigator.clipboard.writeText(demoSignerLink);
+      setDemoLinkCopied(true);
+      addToast({
+        type: "success",
+        title: "Signer link copied",
+      });
+      setTimeout(() => setDemoLinkCopied(false), 2000);
+    } catch (err) {
+      console.error(err);
+      addToast({
+        type: "error",
+        title: "Copy failed",
+        description: "Unable to copy the signer link.",
+      });
+    }
   };
 
   return (
@@ -121,6 +213,90 @@ export default function DashboardPage() {
         title="Dashboard"
         description="Manage your contracts and track signatures"
       />
+
+      <GlassCard padding="lg" className="mb-10">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 text-[var(--text-body-sm)] text-[var(--color-text-muted)] mb-3">
+              <Sparkles className="w-4 h-4" />
+              Demo walkthrough
+            </div>
+            <h2 className="text-[var(--text-h2)] font-semibold text-[var(--color-text-primary)] mb-2">
+              Live signing demo in under two minutes
+            </h2>
+            <p className="text-[var(--text-body)] text-[var(--color-text-secondary)] mb-4">
+              Show the creator view, then open the signer link in a new tab to walk through consent,
+              verification, review, and signature.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <Button asChild>
+                <a href={`/contracts/${DEMO_CONFIG.contractId}`}>
+                  Open contract
+                </a>
+              </Button>
+              <Button variant="secondary" asChild>
+                <a href={`/sign/${DEMO_CONFIG.signerToken}`} target="_blank" rel="noreferrer">
+                  <ExternalLink className="w-4 h-4" />
+                  Open signer experience
+                </a>
+              </Button>
+              <Button variant="ghost" onClick={handleCopyDemoLink}>
+                <Copy className="w-4 h-4" />
+                {demoLinkCopied ? "Copied" : "Copy link"}
+              </Button>
+            </div>
+
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-glass)] p-3 mb-4">
+              <p className="text-xs uppercase tracking-wide text-[var(--color-text-muted)]">
+                Signer link
+              </p>
+              <p className="text-sm font-mono text-[var(--color-text-secondary)] break-all">
+                {demoSignerLink}
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                {
+                  title: "1. Creator view",
+                  description: "Open the contract and show status + signer progress.",
+                },
+                {
+                  title: "2. Signer flow",
+                  description: "Consent → Verify → Review → Sign.",
+                },
+                {
+                  title: "3. Completion",
+                  description: "Show the completion screen and share link again.",
+                },
+              ].map((step) => (
+                <div
+                  key={step.title}
+                  className="rounded-lg border border-[var(--color-border-subtle)] bg-white/60 p-3"
+                >
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                    {step.title}
+                  </p>
+                  <p className="text-xs text-[var(--color-text-muted)] mt-1">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:w-[360px]">
+            <GlassCard padding="none" className="h-[420px]">
+              <DocumentPreview
+                pages={DEMO_CONFIG.pages}
+                templateId={DEMO_CONFIG.templateId}
+                showControls={false}
+              />
+            </GlassCard>
+          </div>
+        </div>
+      </GlassCard>
 
       {/* Stats */}
       {stats && (
@@ -168,7 +344,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[var(--text-h3)] font-medium text-[var(--color-text-primary)]">
-                  {BATCH_FILTERS.find(b => b.value === batchFilter)?.label}
+                  {BATCH_FILTERS.find((b) => b.value === batchFilter)?.label}
                 </p>
                 <p className="text-[var(--text-body-sm)] text-[var(--color-text-muted)]">
                   {batchStats.signedSigners} of {batchStats.totalSigners} signatures collected
@@ -177,16 +353,21 @@ export default function DashboardPage() {
             </div>
             <div className="text-right">
               <p className="text-[2rem] font-semibold text-[var(--color-primary)]">
-                {batchStats.totalSigners > 0 ? Math.round((batchStats.signedSigners / batchStats.totalSigners) * 100) : 0}%
+                {batchStats.totalSigners > 0
+                  ? Math.round((batchStats.signedSigners / batchStats.totalSigners) * 100)
+                  : 0}
+                %
               </p>
               <p className="text-[var(--text-caption)] text-[var(--color-text-muted)]">Complete</p>
             </div>
           </div>
           {/* Progress Bar */}
           <div className="h-2 rounded-full bg-[var(--color-background-subtle)] overflow-hidden">
-            <div 
+            <div
               className="h-full bg-[var(--color-primary)] rounded-full transition-all duration-500"
-              style={{ width: `${batchStats.totalSigners > 0 ? (batchStats.signedSigners / batchStats.totalSigners) * 100 : 0}%` }}
+              style={{
+                width: `${batchStats.totalSigners > 0 ? (batchStats.signedSigners / batchStats.totalSigners) * 100 : 0}%`,
+              }}
             />
           </div>
           <div className="flex items-center gap-6 mt-3 text-[var(--text-caption)]">
@@ -211,65 +392,132 @@ export default function DashboardPage() {
             exit={{ opacity: 0, y: -10 }}
             className="mb-6"
           >
-            <GlassCard padding="sm" className="!bg-[var(--color-primary-muted)] border-[var(--color-primary)]/30">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-[var(--text-body-sm)] font-semibold">
-                      {selectedIds.size}
+            <GlassCard padding="md" className="!bg-[var(--color-primary-muted)] border-[var(--color-primary)]/30">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-9 h-9 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-[var(--text-body-sm)] font-semibold">
+                        {selectedIds.size}
+                      </div>
+                      <span className="text-[var(--text-body-sm)] font-medium text-[var(--color-text-primary)]">
+                        selected
+                      </span>
                     </div>
-                    <span className="text-[var(--text-body-sm)] font-medium text-[var(--color-text-primary)]">
-                      selected
-                    </span>
+                    <button
+                      onClick={clearSelection}
+                      className="text-[var(--text-body-sm)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] underline"
+                    >
+                      Clear
+                    </button>
                   </div>
-                  <button 
-                    onClick={clearSelection}
-                    className="text-[var(--text-body-sm)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] underline"
-                  >
-                    Clear
-                  </button>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button variant="secondary" size="sm" onClick={() => handleBulkAction("upload")}>
+                      <Upload className="w-4 h-4" />
+                      Bulk Upload
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => handleBulkAction("create")}>
+                      <Plus className="w-4 h-4" />
+                      Bulk Create
+                    </Button>
+                    <Button size="sm" onClick={() => handleBulkAction("send")}>
+                      <Send className="w-4 h-4" />
+                      Bulk Send
+                    </Button>
+                  </div>
                 </div>
-                
-                <div className="flex items-center gap-2">
-                  <Button 
-                    variant="secondary" 
-                    size="sm"
-                    onClick={() => handleBulkAction("send")}
-                  >
-                    <Send className="w-4 h-4" />
-                    Send All
-                  </Button>
-                  <Button 
-                    variant="secondary" 
-                    size="sm"
-                    onClick={() => handleBulkAction("remind")}
-                  >
-                    <Bell className="w-4 h-4" />
-                    Remind
-                  </Button>
-                  <Button 
-                    variant="secondary" 
-                    size="sm"
-                    onClick={() => handleBulkAction("download")}
-                  >
-                    <Download className="w-4 h-4" />
-                    Download
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => handleBulkAction("void")}
-                    className="text-[var(--color-error)] hover:bg-[var(--color-error-light)]"
-                  >
-                    <Ban className="w-4 h-4" />
-                    Void
-                  </Button>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <label
+                      htmlFor="bulk-target-date"
+                      className="text-xs font-medium text-[var(--color-text-muted)]"
+                    >
+                      Target date
+                    </label>
+                    <Input
+                      id="bulk-target-date"
+                      type="date"
+                      value={bulkTargetDate}
+                      onChange={(event) => setBulkTargetDate(event.target.value)}
+                      className="w-[160px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-[var(--color-text-muted)]">
+                      Reporting
+                    </span>
+                    <Select value={bulkReportingCadence} onValueChange={setBulkReportingCadence}>
+                      <SelectTrigger className="w-[190px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BULK_REPORTING_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </GlassCard>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {bulkBatchSummary && (
+        <GlassCard padding="lg" className="mb-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-[var(--color-text-muted)]">
+                  Batch ready
+                </p>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                  {BULK_ACTION_LABELS[bulkBatchSummary.action]} batch
+                </h3>
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  Created {formatDate(bulkBatchSummary.createdAt)}
+                </p>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setBulkBatchSummary(null)}>
+                <X className="w-4 h-4" />
+                Dismiss
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-glass)] p-3">
+                <p className="text-xs text-[var(--color-text-muted)]">Targets</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  {bulkBatchSummary.total} contract{bulkBatchSummary.total === 1 ? "" : "s"}
+                </p>
+              </div>
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-glass)] p-3">
+                <p className="text-xs text-[var(--color-text-muted)]">Reporting</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  {BULK_REPORTING_OPTIONS.find((option) => option.value === bulkBatchSummary.reportingCadence)?.label ??
+                    "Reporting cadence"}
+                </p>
+              </div>
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-glass)] p-3">
+                <p className="text-xs text-[var(--color-text-muted)]">Target date</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  {bulkBatchSummary.dueDate ? formatDate(bulkBatchSummary.dueDate) : "Not set"}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)]">
+              <span>{bulkBatchSummary.pending} pending</span>
+              <span>{bulkBatchSummary.completed} completed</span>
+            </div>
+          </div>
+        </GlassCard>
+      )}
 
       {/* Filters Bar */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -406,10 +654,12 @@ export default function DashboardPage() {
                   )}
                 />
               </div>
-              <div className={cn(
-                "transition-all",
-                selectedIds.has(contract.id) && "ring-2 ring-[var(--color-primary)] rounded-2xl"
-              )}>
+              <div
+                className={cn(
+                  "transition-all",
+                  selectedIds.has(contract.id) && "ring-2 ring-[var(--color-primary)] rounded-2xl"
+                )}
+              >
                 <ContractCard contract={contract} />
               </div>
             </motion.div>
