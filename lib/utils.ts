@@ -76,11 +76,11 @@ export function delay(ms: number): Promise<void> {
 }
 
 /**
- * Simulate API delay (300-800ms random)
+ * Simulate API delay (300-800ms random, or specific ms if provided)
  */
-export function simulateApiDelay(): Promise<void> {
-  const ms = Math.floor(Math.random() * 500) + 300;
-  return delay(ms);
+export function simulateApiDelay(ms?: number): Promise<void> {
+  const delayMs = ms ?? Math.floor(Math.random() * 500) + 300;
+  return delay(delayMs);
 }
 
 /**
