@@ -1,0 +1,358 @@
+[
+  {
+    "id": "ctr-001",
+    "title": "NDA - Acme Corporation",
+    "status": "completed",
+    "templateId": "tpl-001",
+    "templateName": "Non-Disclosure Agreement (NDA)",
+    "createdAt": "2025-12-15T10:30:00Z",
+    "updatedAt": "2025-12-18T14:22:00Z",
+    "sentAt": "2025-12-15T11:00:00Z",
+    "completedAt": "2025-12-18T14:22:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-001",
+        "name": "John Smith",
+        "email": "john@acme.com",
+        "role": "CEO",
+        "order": 1,
+        "status": "signed",
+        "viewedAt": "2025-12-16T09:15:00Z",
+        "signedAt": "2025-12-16T09:22:00Z"
+      },
+      {
+        "id": "signer-002",
+        "name": "Emily Davis",
+        "email": "emily@company.com",
+        "role": "Legal Counsel",
+        "order": 2,
+        "status": "signed",
+        "viewedAt": "2025-12-18T14:10:00Z",
+        "signedAt": "2025-12-18T14:22:00Z"
+      }
+    ],
+    "variables": {
+      "disclosingPartyName": "Acme Corporation",
+      "receivingPartyName": "Our Company Inc.",
+      "effectiveDate": "2025-12-15",
+      "confidentialityPeriod": "2",
+      "governingLaw": "Delaware"
+    }
+  },
+  {
+    "id": "ctr-002",
+    "title": "MSA - TechStart Inc.",
+    "status": "pending",
+    "templateId": "tpl-002",
+    "templateName": "Master Services Agreement (MSA)",
+    "createdAt": "2026-01-10T09:00:00Z",
+    "updatedAt": "2026-01-10T09:30:00Z",
+    "sentAt": "2026-01-10T09:30:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-003",
+        "name": "Michael Brown",
+        "email": "michael@techstart.io",
+        "role": "Founder",
+        "order": 1,
+        "status": "viewed",
+        "viewedAt": "2026-01-11T10:45:00Z"
+      },
+      {
+        "id": "signer-004",
+        "name": "Sarah Chen",
+        "email": "sarah@company.com",
+        "role": "Account Manager",
+        "order": 2,
+        "status": "pending"
+      }
+    ],
+    "variables": {
+      "clientName": "TechStart Inc.",
+      "clientAddress": "123 Innovation Way, San Francisco, CA 94105",
+      "providerName": "Our Company Inc.",
+      "effectiveDate": "2026-01-15",
+      "paymentTerms": "net30"
+    }
+  },
+  {
+    "id": "ctr-003",
+    "title": "SOW - Website Redesign",
+    "status": "pending",
+    "templateId": "tpl-003",
+    "templateName": "Statement of Work (SOW)",
+    "createdAt": "2026-01-12T14:00:00Z",
+    "updatedAt": "2026-01-12T14:15:00Z",
+    "sentAt": "2026-01-12T14:15:00Z",
+    "createdBy": {
+      "id": "user-002",
+      "name": "Alex Kim",
+      "email": "alex@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-005",
+        "name": "Rachel Green",
+        "email": "rachel@designco.com",
+        "role": "Creative Director",
+        "order": 1,
+        "status": "sent"
+      }
+    ],
+    "variables": {
+      "projectName": "Corporate Website Redesign",
+      "projectDescription": "Complete redesign of corporate website including new branding, responsive design, and CMS integration.",
+      "startDate": "2026-02-01",
+      "endDate": "2026-04-30",
+      "totalValue": "75000",
+      "deliverables": "1. Design mockups\n2. Responsive frontend\n3. CMS integration\n4. Training documentation"
+    }
+  },
+  {
+    "id": "ctr-004",
+    "title": "Offer Letter - David Park",
+    "status": "completed",
+    "templateId": "tpl-004",
+    "templateName": "Employment Offer Letter",
+    "createdAt": "2025-11-20T11:00:00Z",
+    "updatedAt": "2025-11-22T16:30:00Z",
+    "sentAt": "2025-11-20T11:30:00Z",
+    "completedAt": "2025-11-22T16:30:00Z",
+    "createdBy": {
+      "id": "user-003",
+      "name": "HR Team",
+      "email": "hr@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-006",
+        "name": "David Park",
+        "email": "david.park@email.com",
+        "role": "Candidate",
+        "order": 1,
+        "status": "signed",
+        "viewedAt": "2025-11-21T09:00:00Z",
+        "signedAt": "2025-11-22T16:30:00Z"
+      }
+    ],
+    "variables": {
+      "candidateName": "David Park",
+      "candidateEmail": "david.park@email.com",
+      "jobTitle": "Senior Software Engineer",
+      "department": "Engineering",
+      "startDate": "2026-01-02",
+      "annualSalary": "150000",
+      "managerName": "Lisa Wang"
+    }
+  },
+  {
+    "id": "ctr-005",
+    "title": "NDA - Stealth Startup",
+    "status": "draft",
+    "templateId": "tpl-001",
+    "templateName": "Non-Disclosure Agreement (NDA)",
+    "createdAt": "2026-01-14T16:00:00Z",
+    "updatedAt": "2026-01-14T16:00:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [],
+    "variables": {
+      "disclosingPartyName": "Stealth Startup LLC",
+      "receivingPartyName": "",
+      "effectiveDate": "",
+      "confidentialityPeriod": "3",
+      "governingLaw": ""
+    }
+  },
+  {
+    "id": "ctr-006",
+    "title": "Sales Order - Enterprise License",
+    "status": "voided",
+    "templateId": "tpl-005",
+    "templateName": "Sales Order Agreement",
+    "createdAt": "2025-10-05T08:00:00Z",
+    "updatedAt": "2025-10-12T10:00:00Z",
+    "sentAt": "2025-10-05T08:30:00Z",
+    "createdBy": {
+      "id": "user-004",
+      "name": "Mark Wilson",
+      "email": "mark@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-007",
+        "name": "Jennifer Lee",
+        "email": "jlee@bigcorp.com",
+        "role": "Procurement",
+        "order": 1,
+        "status": "declined"
+      }
+    ],
+    "variables": {
+      "customerName": "BigCorp Industries",
+      "customerEmail": "procurement@bigcorp.com",
+      "productDescription": "Enterprise Software License - 100 seats",
+      "quantity": "100",
+      "unitPrice": "500",
+      "deliveryDate": "2025-11-01"
+    }
+  },
+  {
+    "id": "ctr-007",
+    "title": "Contractor - UI Design",
+    "status": "pending",
+    "templateId": "tpl-006",
+    "templateName": "Contractor Agreement",
+    "createdAt": "2026-01-13T10:00:00Z",
+    "updatedAt": "2026-01-13T10:30:00Z",
+    "sentAt": "2026-01-13T10:30:00Z",
+    "createdBy": {
+      "id": "user-002",
+      "name": "Alex Kim",
+      "email": "alex@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-008",
+        "name": "Nina Patel",
+        "email": "nina@freelance.design",
+        "role": "Contractor",
+        "order": 1,
+        "status": "viewed",
+        "viewedAt": "2026-01-14T08:00:00Z"
+      }
+    ],
+    "variables": {
+      "contractorName": "Nina Patel",
+      "contractorEmail": "nina@freelance.design",
+      "serviceDescription": "UI/UX design services for mobile application redesign project",
+      "startDate": "2026-01-20",
+      "endDate": "2026-03-20",
+      "hourlyRate": "125"
+    }
+  },
+  {
+    "id": "ctr-008",
+    "title": "MSA - Global Partners Ltd",
+    "status": "completed",
+    "templateId": "tpl-002",
+    "templateName": "Master Services Agreement (MSA)",
+    "createdAt": "2025-09-01T09:00:00Z",
+    "updatedAt": "2025-09-10T11:45:00Z",
+    "sentAt": "2025-09-01T10:00:00Z",
+    "completedAt": "2025-09-10T11:45:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-009",
+        "name": "Robert Taylor",
+        "email": "rtaylor@globalpartners.com",
+        "role": "VP Operations",
+        "order": 1,
+        "status": "signed",
+        "viewedAt": "2025-09-05T14:00:00Z",
+        "signedAt": "2025-09-05T14:15:00Z"
+      },
+      {
+        "id": "signer-010",
+        "name": "Amanda White",
+        "email": "awhite@globalpartners.com",
+        "role": "Legal",
+        "order": 2,
+        "status": "signed",
+        "viewedAt": "2025-09-10T11:30:00Z",
+        "signedAt": "2025-09-10T11:45:00Z"
+      }
+    ],
+    "variables": {
+      "clientName": "Global Partners Ltd",
+      "clientAddress": "456 Business Park, London, UK EC2A 4NE",
+      "providerName": "Our Company Inc.",
+      "effectiveDate": "2025-09-15",
+      "paymentTerms": "net45"
+    }
+  },
+  {
+    "id": "ctr-009",
+    "title": "NDA - Innovation Labs",
+    "status": "pending",
+    "templateId": "tpl-001",
+    "templateName": "Non-Disclosure Agreement (NDA)",
+    "createdAt": "2026-01-14T09:00:00Z",
+    "updatedAt": "2026-01-14T09:15:00Z",
+    "sentAt": "2026-01-14T09:15:00Z",
+    "createdBy": {
+      "id": "user-001",
+      "name": "Sarah Chen",
+      "email": "sarah@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-011",
+        "name": "Chris Martin",
+        "email": "chris@innovationlabs.co",
+        "role": "CTO",
+        "order": 1,
+        "status": "sent"
+      }
+    ],
+    "variables": {
+      "disclosingPartyName": "Innovation Labs Inc.",
+      "receivingPartyName": "Our Company Inc.",
+      "effectiveDate": "2026-01-20",
+      "confidentialityPeriod": "2",
+      "governingLaw": "California"
+    }
+  },
+  {
+    "id": "ctr-010",
+    "title": "Offer Letter - Maria Santos",
+    "status": "pending",
+    "templateId": "tpl-004",
+    "templateName": "Employment Offer Letter",
+    "createdAt": "2026-01-15T08:00:00Z",
+    "updatedAt": "2026-01-15T08:30:00Z",
+    "sentAt": "2026-01-15T08:30:00Z",
+    "createdBy": {
+      "id": "user-003",
+      "name": "HR Team",
+      "email": "hr@company.com"
+    },
+    "signers": [
+      {
+        "id": "signer-012",
+        "name": "Maria Santos",
+        "email": "maria.santos@email.com",
+        "role": "Candidate",
+        "order": 1,
+        "status": "sent"
+      }
+    ],
+    "variables": {
+      "candidateName": "Maria Santos",
+      "candidateEmail": "maria.santos@email.com",
+      "jobTitle": "Product Designer",
+      "department": "Design",
+      "startDate": "2026-02-15",
+      "annualSalary": "130000",
+      "managerName": "Alex Kim"
+    }
+  }
+]

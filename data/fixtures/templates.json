@@ -1,0 +1,296 @@
+[
+  {
+    "id": "tpl-001",
+    "name": "Non-Disclosure Agreement (NDA)",
+    "description": "Standard mutual NDA for protecting confidential information between parties.",
+    "category": "nda",
+    "variables": [
+      {
+        "key": "disclosingPartyName",
+        "label": "Disclosing Party Name",
+        "type": "text",
+        "required": true,
+        "placeholder": "Company or individual name"
+      },
+      {
+        "key": "receivingPartyName",
+        "label": "Receiving Party Name",
+        "type": "text",
+        "required": true,
+        "placeholder": "Company or individual name"
+      },
+      {
+        "key": "effectiveDate",
+        "label": "Effective Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "confidentialityPeriod",
+        "label": "Confidentiality Period",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "1", "label": "1 Year" },
+          { "value": "2", "label": "2 Years" },
+          { "value": "3", "label": "3 Years" },
+          { "value": "5", "label": "5 Years" }
+        ],
+        "defaultValue": "2"
+      },
+      {
+        "key": "governingLaw",
+        "label": "Governing Law (State)",
+        "type": "text",
+        "required": true,
+        "placeholder": "e.g., Delaware"
+      }
+    ],
+    "previewUrl": "/images/document-previews/nda-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "tpl-002",
+    "name": "Master Services Agreement (MSA)",
+    "description": "Comprehensive agreement for ongoing professional services engagements.",
+    "category": "msa",
+    "variables": [
+      {
+        "key": "clientName",
+        "label": "Client Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "clientAddress",
+        "label": "Client Address",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "providerName",
+        "label": "Service Provider Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "effectiveDate",
+        "label": "Effective Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "paymentTerms",
+        "label": "Payment Terms",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "net15", "label": "Net 15" },
+          { "value": "net30", "label": "Net 30" },
+          { "value": "net45", "label": "Net 45" },
+          { "value": "net60", "label": "Net 60" }
+        ],
+        "defaultValue": "net30"
+      }
+    ],
+    "previewUrl": "/images/document-previews/msa-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "tpl-003",
+    "name": "Statement of Work (SOW)",
+    "description": "Project-specific work order detailing deliverables, timeline, and compensation.",
+    "category": "sow",
+    "variables": [
+      {
+        "key": "projectName",
+        "label": "Project Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "projectDescription",
+        "label": "Project Description",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "startDate",
+        "label": "Start Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "endDate",
+        "label": "End Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "totalValue",
+        "label": "Total Contract Value",
+        "type": "currency",
+        "required": true,
+        "placeholder": "50,000"
+      },
+      {
+        "key": "deliverables",
+        "label": "Key Deliverables",
+        "type": "textarea",
+        "required": true
+      }
+    ],
+    "previewUrl": "/images/document-previews/sow-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "tpl-004",
+    "name": "Employment Offer Letter",
+    "description": "Standard employment offer for full-time positions.",
+    "category": "employment",
+    "variables": [
+      {
+        "key": "candidateName",
+        "label": "Candidate Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "candidateEmail",
+        "label": "Candidate Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "key": "jobTitle",
+        "label": "Job Title",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "department",
+        "label": "Department",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "startDate",
+        "label": "Start Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "annualSalary",
+        "label": "Annual Salary",
+        "type": "currency",
+        "required": true
+      },
+      {
+        "key": "managerName",
+        "label": "Reporting Manager",
+        "type": "text",
+        "required": true
+      }
+    ],
+    "previewUrl": "/images/document-previews/offer-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "tpl-005",
+    "name": "Sales Order Agreement",
+    "description": "Standard sales order for product or service purchases.",
+    "category": "sales",
+    "variables": [
+      {
+        "key": "customerName",
+        "label": "Customer Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "customerEmail",
+        "label": "Customer Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "key": "productDescription",
+        "label": "Product/Service Description",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "quantity",
+        "label": "Quantity",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "unitPrice",
+        "label": "Unit Price",
+        "type": "currency",
+        "required": true
+      },
+      {
+        "key": "deliveryDate",
+        "label": "Delivery Date",
+        "type": "date",
+        "required": true
+      }
+    ],
+    "previewUrl": "/images/document-previews/sales-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": "tpl-006",
+    "name": "Contractor Agreement",
+    "description": "Independent contractor agreement for freelance engagements.",
+    "category": "employment",
+    "variables": [
+      {
+        "key": "contractorName",
+        "label": "Contractor Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "contractorEmail",
+        "label": "Contractor Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "key": "serviceDescription",
+        "label": "Services to be Provided",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "key": "startDate",
+        "label": "Start Date",
+        "type": "date",
+        "required": true
+      },
+      {
+        "key": "endDate",
+        "label": "End Date",
+        "type": "date",
+        "required": false
+      },
+      {
+        "key": "hourlyRate",
+        "label": "Hourly Rate",
+        "type": "currency",
+        "required": true
+      }
+    ],
+    "previewUrl": "/images/document-previews/contractor-preview.png",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z"
+  }
+]
